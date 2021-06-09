@@ -19,7 +19,6 @@ Program must
 8. User has 7 guesses
 
 """
-
 import random
 import string
 
@@ -27,11 +26,16 @@ import string
 def generate_new_word():
 
     d = {}
-    word_index = random.randint(0, 99)
-
-    for index, word in enumerate(open('word_list.txt')):
+    
+    file = open('word_list.txt')
+    
+    for index, word in enumerate(file):
         d.update({index : word.rstrip('\n)')})
-
+    
+    file.close()
+    
+    word_index = random.randint(0, (len(d)-1))
+    
     return d[word_index]
 
 
