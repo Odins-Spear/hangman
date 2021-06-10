@@ -42,22 +42,69 @@ Returns: a string object of a word selected at random
     
     file.close()
     
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun  9 19:28:13 2021
+
+@author: wittsy
+"""
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jan  4 15:02:07 2021
+@author: wittsy
+Program to play hangman meeting the specification for the JHUB coding scheme.
+Program must
+1. Run in python3
+2. Only stop for a guess or on the win/loss
+3. must ask for the guess with "Please enter your next guess: "
+4. The word must be 'starred' out exactly and the stars revealed on corect guesses
+5. The program must say either "Congratulations you win" or "you lose"
+6. The game must use a word from the "word_list.txt" file picked at random
+7. Word list is saved in the same directory
+8. User has 7 guesses
+"""
+import random
+import string
+
+
+def generate_new_word():
+    '''
+    This function opens a text file and reads the contents into an iterable dictionary with an indexed key word,
+    simulatanouesly removing paragraph markers and formatting to prevent errors with the expected use of the returned
+    word. A random number fuction then generates a key for the selection of a word from the dictinary, which is returned.
+    Input: none, however it is assumed the text file is in the same directory as the exeuting file
+    Returns: a string object of a word selected at random
+    '''
+
+    d = {}
+    
+    file = open('word_list.txt')
+    
+    for index, word in enumerate(file):
+        d.update({index : word.rstrip('\n)')})
+    
+    file.close()
+    
     word_index = random.randint(0, (len(d)-1))    #generation of a random number between zero (inclusive) and the size of the ditionary (adjusted for zero index)
     
     return d[word_index] # returns a string object
 
 
 def get_valid_user_input():
+    
+    '''
+    This function handles the user interaction, requesting that a user inputs a guess for the word in play.
+    This guess is checked to be a letter of the alphabet and if so is returned as a lower case version of the
+    letter to ensure that the return is consistently lower case. if not the function loops until a
+    valid guess is inputted by the user.
+    Input : none
+    Returns : a lower case string object of a letter representing the guess of the user 
+    '''
 
-'''
-This function handles the user interaction, requesting that a user inputs a guess for the word in play.
-This guess is checked to be a letter of the alphabet and if so is returned as a lower case version of the
-letter to ensure that the return is consistently lower case. if not the function loops until a
-valid guess is inputted by the user.
-Input : none
-Returns : a lower case string object of a letter representing the guess of the user 
-'''
-
+    
     guess = input('Please enter your next guess: ') # User guess input
     alphabet = list(string.ascii_lowercase) # cast a list object containing all 26 letters of the alphabet as lower case letters
 
@@ -67,11 +114,11 @@ Returns : a lower case string object of a letter representing the guess of the u
     return guess.lower()
 
 def mask_word(word):
-'''
-This fuction receives a string obeject and returns a string of '*'s the length of the recieved word. Essentially creating a mask for the word in play
-Input : string object
-Returns : string object of '*'s the length of the received word.
-'''
+    '''
+    This fuction receives a string obeject and returns a string of '*'s the length of the recieved word. Essentially creating a mask for the word in play
+    Input : string object
+    Returns : string object of '*'s the length of the received word.
+    '''
 
     length = 0
 
@@ -81,42 +128,41 @@ Returns : string object of '*'s the length of the received word.
     return ('*' * length)
 
 def check_for_win(letter_list):
-'''
-This function checks for the win condition, inducing a win from a lack of "*"s in the received word, which is a list object.
-input : a list object of string objects 
-returns : a boolean True on detecting a win and False if a win condition is not detected. 
-
-'''
-    if '*' in letter_list
+    '''
+    This function checks for the win condition, inducing a win from a lack of "*"s in the received word, which is a list object.
+    input : a list object of string objects 
+    returns : a boolean True on detecting a win and False if a win condition is not detected. 
+    '''
+    if '*' in letter_list:
         return False
     else:
         return True
 
 def display_remaining_lives(lives):
-'''
-Simple function to print the number of lives remaining for the user. Uses a global variable 'lives' which is an integer. 
-imput: integer
-returns : Nil
-'''
+    '''
+    Simple function to print the number of lives remaining for the user. Uses a global variable 'lives' which is an integer. 
+    imput: integer
+    returns : Nil
+    '''
 
     print(f'You have {lives} lives remaining.\n')
 
 def display_word(letter_list):
-'''    
-this function displays a string object that is a concatenation of the working letters, whether they are revealed or still '*'
-imput : list object of string objects
-returns : nil
-'''
+    '''    
+    this function displays a string object that is a concatenation of the working letters, whether they are revealed or still '*'
+    imput : list object of string objects
+    returns : nil
+    '''
     word = ''
     word = word.join(letter_list)
     print(word)
     
 def replay():
-'''
-This function handles the 'play again' condition. The user input generates a boolean True should another game be required and a boolean False if not
-input : generated in function
-returns : boolean 
-'''
+    '''
+    This function handles the 'play again' condition. The user input generates a boolean True should another game be required and a boolean False if not
+    input : generated in function
+    returns : boolean 
+    '''
 
     replay_condition = input('Would you like to play again? (y/n) ')
 
@@ -143,9 +189,6 @@ while True:
 
         choice = get_valid_user_input() #get a user guess that is valid for the game
 
-'''
-is the user guess in the game word? if yes then reveal that letter in the working word by iterating through the list of letters and changing the '*' to the guessed letter. if the guess is not in the game word then lose a life. this routine uses the game word as a refernce to to change the working word.         
-'''
 
         if choice in list(game_word): 
         #index through the working word and if the letter is in the game word change the working word to show a correct guess, if not then leave it as a '*'
