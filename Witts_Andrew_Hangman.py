@@ -2,58 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jan  4 15:02:07 2021
-
-@author: wittsy
-
-Program to play hangman meeting the specification for the JHUB coding scheme.
-
-Program must
-
-1. Run in python3
-2. Only stop for a guess or on the win/loss
-3. must ask for the guess with "Please enter your next guess: "
-4. The word must be 'starred' out exactly and the stars revealed on corect guesses
-5. The program must say either "Congratulations you win" or "you lose"
-6. The game must use a word from the "word_list.txt" file picked at random
-7. Word list is saved in the same directory
-8. User has 7 guesses
-
-"""
-import random
-import string
-
-
-def generate_new_word():
-'''
-This function opens a text file and reads the contents into an iterable dictionary with an indexed key word,
-simulatanouesly removing paragraph markers and formatting to prevent errors with the expected use of the returned
-word. A random number fuction then generates a key for the selection of a word from the dictinary, which is returned.
-
-Input: none, however it is assumed the text file is in the same directory as the exeuting file
-Returns: a string object of a word selected at random
-'''
-    
-    d = {}
-    
-    file = open('word_list.txt')
-    
-    for index, word in enumerate(file):
-        d.update({index : word.rstrip('\n)')})
-    
-    file.close()
-    
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jun  9 19:28:13 2021
-
-@author: wittsy
-"""
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jan  4 15:02:07 2021
 @author: wittsy
 Program to play hangman meeting the specification for the JHUB coding scheme.
 Program must
